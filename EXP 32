@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <limits.h>
+
+int main() {
+    int frames, pages, faults = 0, time = 0;
+    int frame[10], ref[20], used[10];
+
+    printf("Enter number of frames: ");
+    scanf("%d", &frames);
+
+    printf("Enter number of pages: ");
+    scanf("%d", &pages);
+
+    printf("Enter reference string:\n");
+    for (int i = 0; i < pages; i++)
+        scanf("%d", &ref[i]);
+
+    for (int i = 0; i < frames; i++) {
+        frame[i] = -1;
+        used[i] = 0;
+    }
+
+    for (int i = 0; i < pages; i++) {
+        time++;
+        int found = 0;
+
+        for (int j = 0; j < frames; j++) {
+            if (frame[j] == ref[i]) {
+                used[j] = time;
+                found = 1;
+                break;
+            }
+        }
+
+        if (!found) {
+            int pos = -1;
+            int min = INT_MAX;
+
+            for (int j = 0; j < frames; j++) {
+                if (frame[j] == -1) {
+                    pos = j;
+                    break;
+                }
+                if (used[j] < min) {
+                    min = used[j];
+                    pos = j;
+                }
+            }
+
+            frame[pos] = ref[i];
+            used[pos] = time;
+            faults++;
+        }
+
+        printf("After page %d: ", ref[i]);
+        for (int j = 0; j < frames; j++)
+            printf("%d ", frame[j]);
+        printf("\n");
+    }
+
+    printf("Total Page Faults = %d\n", faults);
+    return 0;
+}
+
+
+
+OUTPUT:
+
+
+Enter number of frames: 3
+Enter number of pages: 7
+Enter reference string:
+7 0 1 2 0 3 0
+After page 7: 7 -1 -1
+After page 0: 7 0 -1
+After page 1: 7 0 1
+After page 2: 2 0 1
+After page 0: 2 0 1
+After page 3: 2 0 3
+After page 0: 2 0 3
+Total Page Faults = 6
