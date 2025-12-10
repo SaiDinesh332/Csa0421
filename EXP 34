@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int main() {
+    int start, length, i;
+
+    printf("Enter starting block: ");
+    scanf("%d", &start);
+
+    printf("Enter number of blocks required: ");
+    scanf("%d", &length);
+
+    printf("File blocks allocated:\n");
+    for (i = start; i < start + length; i++)
+        printf("Block %d -> Record %d\n", i, i - start);
+
+    return 0;
+}
+
+OUTPUT:
+Enter starting block: 10
+Enter number of blocks required: 5
+File blocks allocated:
+Block 10 -> Record 0
+Block 11 -> Record 1
+Block 12 -> Record 2
+Block 13 -> Record 3
+Block 14 -> Record 4
