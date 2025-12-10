@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+struct block {
+    int data;
+    int next;
+};
+
+int main() {
+    struct block disk[10];
+
+    disk[2].data = 10;  disk[2].next = 5;
+    disk[5].data = 20;  disk[5].next = 7;
+    disk[7].data = 30;  disk[7].next = -1;
+
+    int start = 2;
+    printf("Linked File Allocation:\n");
+
+    while (start != -1) {
+        printf("Block %d -> Data %d\n", start, disk[start].data);
+        start = disk[start].next;
+    }
+
+    return 0;
+}
+
+
+OUTPUT:
+Linked File Allocation:
+Block 2 -> Data 10
+Block 5 -> Data 20
+Block 7 -> Data 30
